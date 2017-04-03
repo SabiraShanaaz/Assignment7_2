@@ -1,0 +1,23 @@
+1.A = load '/user/acadgild/Desktop/sam.txt';
+
+//line 1 will load the data into the pig storage
+
+2.B = foreach A generate flatten(TOKENIZE((chararray)$0)) as word;
+
+//line 2 will iterate through the records and each of the values in the columns are tokenized.
+
+3.C = filter B by word matches '\\w+';
+
+//line 3 will filter the words that matches.
+
+4.D = group C by word;
+
+//line 4 will group the C data records based on the words.
+
+5.E = foreach D generate COUNT(C), group;
+
+//line 5 will iterate to count the number of words 
+
+6.dump E;
+
+//line 6 will display the result.
